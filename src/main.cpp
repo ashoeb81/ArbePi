@@ -37,7 +37,7 @@ void getFileNames(string* log_fname, string* video_fname) {
 void addTimestampToFrame(Mat* video_frame) {
     // Get timestamp to add to frame.
     string timestamp = getTimestamp();
-    putText(*video_frame, timestamp, Point(30,30) , FONT_HERSHEY_SIMPLEX, 1, Scalar(255, 0, 0), 2);
+    putText(*video_frame, timestamp, Point(5,30) , FONT_HERSHEY_SIMPLEX, 0.70, Scalar(255, 0, 0), 2);
 }
 
 int main() {
@@ -72,7 +72,7 @@ int main() {
     VideoCapture capture(0);
     double dWidth = capture.get(CV_CAP_PROP_FRAME_WIDTH); //get the width of frames of the video
     double dHeight = capture.get(CV_CAP_PROP_FRAME_HEIGHT); //get the height of frames of the video
-    Size frameSize(static_cast<int>(dWidth), static_cast<int>(dHeight));
+    Size frameSize(320, 240);
 
     // Setup video file writer.
     VideoWriter oVideoWriter(video_fname, CV_FOURCC('M','J','P','G'), 20, frameSize, true);
@@ -100,7 +100,7 @@ int main() {
         }
 
         // Add a timestamp to the frame and write to video file.
-        resize(frame, frame, size(320, 240));
+        resize(frame, frame, Size(320, 240));
         addTimestampToFrame(&frame);
         oVideoWriter.write(frame);
 
