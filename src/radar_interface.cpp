@@ -35,7 +35,7 @@ int uart_init(const string& log_fname) {
     }
     std::cout << "Serial port open"
               << std::endl;
-    logFile.open(log_fname, ios::out);
+    logFile.open(log_fname.c_str(), ios::out);
     return 0;
 }
 
