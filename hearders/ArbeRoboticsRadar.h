@@ -1,8 +1,5 @@
 /*
- * ArbeRoboticsRadarInterface.h
- *
- *  Created on: Oct 21, 2016
- *      Author: Noam Arkind
+ * Arbe radar API.
  */
 
 #ifndef ARBEROBOTICSRADARintERFACE_H_

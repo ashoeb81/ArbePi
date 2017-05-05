@@ -1,8 +1,5 @@
 /*
- * ArbeRoboticsRadarInterface.cpp
- *
- *  Created on: Oct 21, 2016
- *      Author: Noam Arkind
+ * Arbe radar API.
  */
 
 #include "ArbeRoboticsRadar.h"
@@ -51,7 +48,8 @@ bool ArbeRoboticsRadar::UartRxHandler(uint8_t *buffer, uint32_t len) {
     }
     while (this->has_msg) {
         if (this->rx_index >= sizeof(EMPTY_msg)) {
-            EMPTY_msg *msg = (EMPTY_msg *) this->rx_data_buff;
+            EMPTY_msg * msg = (EMPTY_msg * )
+            this->rx_data_buff;
             if (msg->len > MAX_MSG_LEN) {
                 RadarException ex;
                 this->radarError(ex);
@@ -284,7 +282,8 @@ void ArbeRoboticsRadar::send_ack() {
         this->transmitUartBuffer((uint8_t *) "111111111111", 12);
 }
 
-bool ArbeRoboticsRadar::send_command(CMD_TYPE cmd, uint32_t mode, uint32_t id, uint16_t bit_mask, uint16_t param1, uint8_t param2,
+bool ArbeRoboticsRadar::send_command(CMD_TYPE cmd, uint32_t mode, uint32_t id, uint16_t bit_mask, uint16_t param1,
+                                     uint8_t param2,
                                      uint8_t param3) {
     cmd_msg.cmd = cmd;
     cmd_msg.mode = mode;

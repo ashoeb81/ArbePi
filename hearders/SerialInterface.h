@@ -1,8 +1,5 @@
 /*
- * serialInterface.h
- *
- *  Created on: Oct 21, 2016
- *      Author: Noam Arkind
+ * Arbe radar serial message structures.
  */
 
 #ifndef SERIALINTERFACE_H_

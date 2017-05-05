@@ -1,8 +1,5 @@
 /*
- * RadarConfigurations.h
- *
- *  Created on: Oct 22, 2016
- *      Author: Noam Arkind
+ * Radar sensitivity configurations.
  */
 
 #ifndef ARBEROBOTICSRADARAPI_RADARCONFIGURATIONS_H_

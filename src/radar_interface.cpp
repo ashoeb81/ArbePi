@@ -1,45 +1,41 @@
-/*
- * radar_interface.cpp
- *
- *  Created on: 12 Apr 2017
- *      Author: pi
- */
-
+#include <ctime>
+#include <errno.h>
+#include <fcntl.h>
+#include <fstream>
+#include <iostream>
+#include "radar_interface.h"
+#include <stdio.h>
+#include <termios.h>
+#include <unistd.h>
 #include <wiringSerial.h>
 #include <wiringPi.h>
 
-
-#include <unistd.h>
-#include "radar_interface.h"
-#include <iostream>
-#include <fstream>
-#include <ctime>
+// Maximum size of buffer to be received from Arbe radar.
+#define BUFFER_SIZE 1000
 
 using namespace std;
 
-#include <stdio.h>
-#include <fcntl.h>
-#include <termios.h>
-#include <errno.h>
-
-#define BUFFER_SIZE 1000
-
+// file descriptor associated with serial port.
 int fd;
+
+// output file stream used to log Arbe radar targets.
 ofstream logFile;
 
-int uart_init() {
-
+int uart_init(const string& log_fname) {
     if ((fd = serialOpen("/dev/ttyUSB0", 115200)) < 0) {
-//	if((fd=serialOpen("/dev/ttyS0",115200))<0)
-        std::cout << "Failed Serial Port opent!!!!" << strerror(errno) << endl;
+        std::cout << "Could not open serial port"
+                  << strerror(errno)
+                  << endl;
         return -1;
     }
     if (wiringPiSetup() == (-1)) {
-        std::cout << "Failed WiringPiSetup()" << std::endl;
+        std::cout << "Failed to setup wiringPi"
+                  << std::endl;
         return -2;
     }
-    std::cout << "Serial Port opent!!!!" << std::endl;
-    logFile.open("/media/usb/log.txt", ios::out | ios::app);
+    std::cout << "Serial port open"
+              << std::endl;
+    logFile.open(log_fname, ios::out);
     return 0;
 }
 
@@ -51,36 +47,23 @@ bool TransmitUartBuffer(uint8_t *buffer, int len) {
 }
 
 void RadarError(RadarException exception) {
-    cout << "Radar Error!" << endl;
+    cout << "Radar Error Callback." << endl;
 }
 
 void RadarStatusUpdated(RadarStatus status) {
-    cout << "Radar Status Updated!" << endl;
+    cout << "Radar Status Callback." << endl;
 }
 
 void TargetsMessageReceived(Target_Data *targets, int num_targets, int sector_id) {
-
-    /*
-    FLOAT range;
-    FLOAT dir;
-    FLOAT vel;
-    FLOAT prob;
-    FLOAT amp;
-    FLOAT snr;
-    */
+    // Get timestamp associated with target detections.
     time_t now = time(0);
-    char* dt = ctime(&now);
-    cout << "Targets Message Received: " << num_targets << " " << sector_id << endl;
-    for(int i=0; i < num_targets; i++) {
-        logFile << "Target " << i 
-                << "| Range " << targets[i].range 
-                << "| Dir " << targets[i].dir
-                << "| Velocity " << targets[i].vel
-                << "| Timestamp " << dt
-                << endl;
-        cout << "Target " << i 
-                << "| Range " << targets[i].range 
-                << "| Dir " << targets[i].dir
+    char *dt = ctime(&now);
+    cout << num_targets << " Detected from sector " << sector_id << endl;
+    // Log detection parameters associated with each target disk.
+    for (int i = 0; i < num_targets; i++) {
+        logFile << "Target " << i
+                << "| Range " << targets[i].range
+                << "| Direction " << targets[i].dir
                 << "| Velocity " << targets[i].vel
                 << "| Timestamp " << dt
                 << endl;
