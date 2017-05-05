@@ -6,11 +6,12 @@
 #define RADAR_INTERFACE_H_
 
 #include "ArbeRoboticsRadar.h"
+#include <string>
 
 /* Initialized serial port to communicate with Arbe radar.
  * @param string name of log file that saves Arbe radar messages.
  */
-int uart_init(const string& log_fname);
+int uart_init(const std::string &log_fname);
 
 /* Pulls data from serial port. */
 void get_uart_data();
