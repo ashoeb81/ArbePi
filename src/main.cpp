@@ -6,6 +6,10 @@
 using namespace cv;
 using namespace std;
 
+// Video frame width and height
+const int kFrameWidth = 320;
+const int kFrameHeight = 240;
+
 /* Generate timestamp from current time.
  * @returns string of current time and date.
  */
@@ -70,9 +74,7 @@ int main() {
 
     // Setup USB camera video capture.
     VideoCapture capture(0);
-    double dWidth = capture.get(CV_CAP_PROP_FRAME_WIDTH); //get the width of frames of the video
-    double dHeight = capture.get(CV_CAP_PROP_FRAME_HEIGHT); //get the height of frames of the video
-    Size frameSize(320, 240);
+    Size frameSize(kFrameWidth, kFrameHeight);
 
     // Setup video file writer.
     VideoWriter oVideoWriter(video_fname, CV_FOURCC('M','J','P','G'), 20, frameSize, true);
@@ -100,7 +102,7 @@ int main() {
         }
 
         // Add a timestamp to the frame and write to video file.
-        resize(frame, frame, Size(320, 240));
+        resize(frame, frame, Size(kFrameWidth, kFrameHeight));
         addTimestampToFrame(&frame);
         oVideoWriter.write(frame);
 
