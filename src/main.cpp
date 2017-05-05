@@ -37,7 +37,7 @@ void getFileNames(string* log_fname, string* video_fname) {
 void addTimestampToFrame(Mat* video_frame) {
     // Get timestamp to add to frame.
     string timestamp = getTimestamp();
-    putText(*frame, timestamp, Point(30,30) , FONT_HERSHEY_SIMPLEX, 1, Scalar(255, 0, 0), 2);
+    putText(*video_frame, timestamp, Point(30,30) , FONT_HERSHEY_SIMPLEX, 1, Scalar(255, 0, 0), 2);
 }
 
 int main() {
@@ -61,11 +61,11 @@ int main() {
             cout << "Configured Radar." << endl;
             AR_RADAR->StartRadar(RadarConfigurations::DEFAULT_CONFIG_FRONT_SECTOR);
         } else {
-            count << "Failed to Configure Radar and Exiting." << endl;
+            cout << "Failed to Configure Radar and Exiting." << endl;
             return -1;
         }
     } else {
-        count << "Failed to Connect to Radar and Exiting." << endl;
+        cout << "Failed to Connect to Radar and Exiting." << endl;
     }
 
     // Setup USB camera video capture.
@@ -96,7 +96,7 @@ int main() {
 
         // Grab a frame from the camera.
         Mat frame;
-        if (!capture.read(frame);)
+        if (!capture.read(frame))
        {
              cout << "ERROR: Could not read a frame from camera" << endl;
              retun -1;
