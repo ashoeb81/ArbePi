@@ -96,7 +96,7 @@ int main() {
         if (!capture.read(frame))
        {
              cout << "ERROR: Could not read a frame from camera" << endl;
-             retun -1;
+             break;
         }
 
         // Add a timestamp to the frame and write to video file.
