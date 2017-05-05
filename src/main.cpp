@@ -72,7 +72,7 @@ int main() {
     VideoCapture capture(0);
     double dWidth = capture.get(CV_CAP_PROP_FRAME_WIDTH); //get the width of frames of the video
     double dHeight = capture.get(CV_CAP_PROP_FRAME_HEIGHT); //get the height of frames of the video
-    Size frameSize(320, 240);
+    Size frameSize(static_cast<int>(dWidth), static_cast<int>(dHeight));
 
     // Setup video file writer.
     VideoWriter oVideoWriter(video_fname, CV_FOURCC('M','J','P','G'), 20, frameSize, true);
