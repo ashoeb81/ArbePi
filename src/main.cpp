@@ -74,18 +74,15 @@ int main() {
     double dHeight = capture.get(CV_CAP_PROP_FRAME_HEIGHT); //get the height of frames of the video
     Size frameSize(static_cast<int>(dWidth), static_cast<int>(dHeight));
 
-    if (!capture.isOpened()) {
-        cout << "Failed to open capture device" << endl;
-        return -1;
-    }
-
-
     // Setup video file writer.
     VideoWriter oVideoWriter(video_fname, CV_FOURCC('M','J','P','G'), 20, frameSize, true);
 
-    if (!oVideoWriter.isOpened())
+
+    if (!oVideoWriter.isOpened() || !capture.isOpened())
     {
-         cout << "Failed to setup video writer." << endl;
+         cout << "Failed to setup video capture and writer." << endl;
+         // Shutdown the radar
+         AR_RADAR->StopRadar();
          return -1;
     }
 
