@@ -1,6 +1,7 @@
 #include "radar_interface.h"
 #include <opencv2/opencv.hpp>
 #include <iostream>
+#include <sstream>
 #include <ctime>
 
 using namespace cv;
@@ -43,8 +44,9 @@ void addTimestampToFrame(Mat* video_frame) {
     string timestamp = getTimestamp();
     putText(*video_frame, timestamp, Point(5,30) , FONT_HERSHEY_SIMPLEX, 0.70, Scalar(255, 0, 0), 2);
     // Add Number of targets detected to frame
-    string num_targets = "Detected: " + AR_RADAR->num_targets;
-    putText(*video_frame, num_targets, Point(5, 50), FONT_HERSHEY_SIMPLEX, 0.70, Scalar(255, 0, 0), 2);
+    ostringstream oss;
+    oss << "Detected: " << AR_RADAR->num_targets;
+    putText(*video_frame, oss.string(), Point(5, 50), FONT_HERSHEY_SIMPLEX, 0.70, Scalar(255, 0, 0), 2);
 }
 
 int main() {
