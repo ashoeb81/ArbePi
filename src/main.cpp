@@ -45,10 +45,15 @@ void addTimestampToFrame(Mat* video_frame) {
     // Get timestamp to add to frame.
     string timestamp = getTimestamp();
     putText(*video_frame, timestamp, Point(5,30) , FONT_HERSHEY_SIMPLEX, 0.60, Scalar(255, 0, 0), 1);
-    // Add Number of targets detected to frame
-    ostringstream oss;
-    oss << "Detected: " << AR_RADAR->num_targets;
-    putText(*video_frame, oss.str(), Point(5, 50), FONT_HERSHEY_SIMPLEX, 0.60, Scalar(0, 0, 255), 1);
+    // Add Range and Velocity of first target
+    if (AR_RADAR->num_targets > 0) {
+        ostringstream oss;
+        oss << "Detected | Range: "
+            << AR_RADAR->targets[0].range
+            << " | Velocity: "
+            << AR_RADAR->targets[0].vel;
+        putText(*video_frame, oss.str(), Point(5, 50), FONT_HERSHEY_SIMPLEX, 0.60, Scalar(0, 0, 255), 1);
+    }
 }
 
 int main() {
