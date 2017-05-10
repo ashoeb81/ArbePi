@@ -15,6 +15,7 @@ using namespace std;
 
 #define AR_RADAR ArbeRoboticsRadar::GetInstance()
 #define MAX_EXCEPTION_MSG    100
+#define MAX_TARGETS 100
 
 struct RadarStatus {
     int type;
@@ -62,8 +63,11 @@ private:
     send_command(CMD_TYPE cmd, uint32_t mode, uint32_t id, uint16_t bit_mask, uint16_t param1, uint8_t param2, uint8_t param3);
 
 public:
+    Target_Data targets[MAX_TARGETS];
+    int num_targets;
     RadarStatus currStatus;
     RadarConfiguration currentConfiguration;
+
 
     bool UartRxHandler(uint8_t *buffer, uint32_t len);
 

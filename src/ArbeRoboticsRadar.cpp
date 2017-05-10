@@ -80,7 +80,7 @@ bool ArbeRoboticsRadar::UartRxHandler(uint8_t *buffer, uint32_t len) {
 }
 
 void ArbeRoboticsRadar::parse_message(uint8_t *buffer, uint8_t type, uint8_t crc) {
-    Target_Data *targets;
+    //Target_Data *targets;
     switch (type) {
         case Raw_Output:
             RAW_msg *raw_msg;
@@ -109,12 +109,13 @@ void ArbeRoboticsRadar::parse_message(uint8_t *buffer, uint8_t type, uint8_t crc
                 break;
             }
 
-            targets = new Target_Data[targets_msg->num_targets];
+            //targets = new Target_Data[targets_msg->num_targets];
+            this->num_targets = targets_msg->num_targets;
             for (int i = 0; i < targets_msg->num_targets; i++) {
-                targets[i].range = targets_msg->targets_data[i].range;
-                targets[i].dir = targets_msg->targets_data[i].dir;
-                targets[i].vel = targets_msg->targets_data[i].vel;
-                targets[i].prob = targets_msg->targets_data[i].prob;
+                this->targets[i].range = targets_msg->targets_data[i].range;
+                this->targets[i].dir = targets_msg->targets_data[i].dir;
+                this->targets[i].vel = targets_msg->targets_data[i].vel;
+                this->targets[i].prob = targets_msg->targets_data[i].prob;
             }
             this->targetsMessageRecieved(targets, targets_msg->num_targets, targets_msg->sector_id);
             delete (targets);
