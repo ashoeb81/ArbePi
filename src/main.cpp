@@ -73,9 +73,9 @@ int main() {
     // Attempt to connect to the Arbe radar.
     if (AR_RADAR->Connect(10000000, 50)) {
         cout << "Connected to Radar." << endl;
-        if (AR_RADAR->ConfigureRadar(RadarConfigurations::HIGH_CONFIDANCE_CONFIG_FRONT_SECTOR)) {
+        if (AR_RADAR->ConfigureRadar(RadarConfigurations::DEFAULT_CONFIG_FRONT_SECTOR)) {
             cout << "Configured Radar." << endl;
-            AR_RADAR->StartRadar(RadarConfigurations::HIGH_CONFIDANCE_CONFIG_FRONT_SECTOR);
+            AR_RADAR->StartRadar(RadarConfigurations::DEFAULT_CONFIG_FRONT_SECTOR);
         } else {
             cout << "Failed to Configure Radar and Exiting." << endl;
             return -1;
