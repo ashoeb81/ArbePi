@@ -8,7 +8,7 @@ using namespace cv;
 using namespace std;
 
 // Video frame width and height
-const int kFrameWidth = 320;
+const int kFrameWidth = 360;
 const int kFrameHeight = 240;
 
 /* Generate timestamp from current time.
@@ -48,9 +48,9 @@ void addTimestampToFrame(Mat* video_frame) {
     // Add Range and Velocity of first target
     if (AR_RADAR->num_targets > 0) {
         ostringstream oss;
-        oss << "Detected | Range: "
+        oss << "Detection | R: "
             << AR_RADAR->targets[0].range
-            << " | Velocity: "
+            << " | V: "
             << AR_RADAR->targets[0].vel;
         putText(*video_frame, oss.str(), Point(5, 50), FONT_HERSHEY_SIMPLEX, 0.60, Scalar(0, 0, 255), 1);
     }
@@ -89,7 +89,7 @@ int main() {
     Size frameSize(kFrameWidth, kFrameHeight);
 
     // Add window for video frame display
-    namedWindow("Video Frame", WINDOW_AUTOSIZE);
+    namedWindow("Video Frame", WINDOW_NORMAL);
 
     // Setup video file writer.
     VideoWriter oVideoWriter(video_fname, CV_FOURCC('M','J','P','G'), 20, frameSize, true);
