@@ -18,7 +18,8 @@ string getTimestamp() {
     time_t now = time(0);
     char* dt = ctime(&now);
     string timestamp(dt);
-    replace((*timestamp).begin(), (*timestamp).end(), '?', '');
+    // The "?" character is always inserted at end, so remove it!
+    timestamp.erase(timestamp.length()-1,1);
     return timestamp;
 }
 
