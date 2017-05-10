@@ -117,8 +117,8 @@ void ArbeRoboticsRadar::parse_message(uint8_t *buffer, uint8_t type, uint8_t crc
                 this->targets[i].vel = targets_msg->targets_data[i].vel;
                 this->targets[i].prob = targets_msg->targets_data[i].prob;
             }
-            this->targetsMessageRecieved(targets, targets_msg->num_targets, targets_msg->sector_id);
-            delete (targets);
+            this->targetsMessageRecieved(this->targets, targets_msg->num_targets, targets_msg->sector_id);
+            //delete (targets);
             break;
         case Status_Output:
             Status_msg *status_msg;

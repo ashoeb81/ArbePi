@@ -42,11 +42,11 @@ void getFileNames(string* log_fname, string* video_fname) {
 void addTimestampToFrame(Mat* video_frame) {
     // Get timestamp to add to frame.
     string timestamp = getTimestamp();
-    putText(*video_frame, timestamp, Point(5,30) , FONT_HERSHEY_SIMPLEX, 0.70, Scalar(255, 0, 0), 2);
+    putText(*video_frame, timestamp, Point(5,30) , FONT_HERSHEY_SIMPLEX, 0.60, Scalar(255, 0, 0), 1);
     // Add Number of targets detected to frame
     ostringstream oss;
     oss << "Detected: " << AR_RADAR->num_targets;
-    putText(*video_frame, oss.str(), Point(5, 50), FONT_HERSHEY_SIMPLEX, 0.70, Scalar(255, 0, 0), 2);
+    putText(*video_frame, oss.str(), Point(5, 50), FONT_HERSHEY_SIMPLEX, 0.60, Scalar(0, 0, 255), 1);
 }
 
 int main() {
