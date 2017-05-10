@@ -46,7 +46,7 @@ void addTimestampToFrame(Mat* video_frame) {
     // Add Number of targets detected to frame
     ostringstream oss;
     oss << "Detected: " << AR_RADAR->num_targets;
-    putText(*video_frame, oss.string(), Point(5, 50), FONT_HERSHEY_SIMPLEX, 0.70, Scalar(255, 0, 0), 2);
+    putText(*video_frame, oss.str(), Point(5, 50), FONT_HERSHEY_SIMPLEX, 0.70, Scalar(255, 0, 0), 2);
 }
 
 int main() {
