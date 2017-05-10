@@ -18,6 +18,7 @@ string getTimestamp() {
     time_t now = time(0);
     char* dt = ctime(&now);
     string timestamp(dt);
+    replace((*timestamp).begin(), (*timestamp).end(), '?', '');
     return timestamp;
 }
 
