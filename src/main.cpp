@@ -61,9 +61,9 @@ int main() {
     // Attempt to connect to the Arbe radar.
     if (AR_RADAR->Connect(10000000, 50)) {
         cout << "Connected to Radar." << endl;
-        if (AR_RADAR->ConfigureRadar(RadarConfigurations::DEFAULT_CONFIG_FRONT_SECTOR)) {
+        if (AR_RADAR->ConfigureRadar(RadarConfigurations::HIGH_CONFIDANCE_CONFIG_FRONT_SECTOR)) {
             cout << "Configured Radar." << endl;
-            AR_RADAR->StartRadar(RadarConfigurations::DEFAULT_CONFIG_FRONT_SECTOR);
+            AR_RADAR->StartRadar(RadarConfigurations::HIGH_CONFIDANCE_CONFIG_FRONT_SECTOR);
         } else {
             cout << "Failed to Configure Radar and Exiting." << endl;
             return -1;
@@ -75,6 +75,9 @@ int main() {
     // Setup USB camera video capture.
     VideoCapture capture(0);
     Size frameSize(kFrameWidth, kFrameHeight);
+
+    // Add window for video frame display
+    namedWindow("Video Frame", WINDOW_AUTOSIZE);
 
     // Setup video file writer.
     VideoWriter oVideoWriter(video_fname, CV_FOURCC('M','J','P','G'), 20, frameSize, true);
@@ -101,9 +104,14 @@ int main() {
              break;
         }
 
-        // Add a timestamp to the frame and write to video file.
+        // Add a timestamp to the frame.
         resize(frame, frame, Size(kFrameWidth, kFrameHeight));
         addTimestampToFrame(&frame);
+ 
+        // Display video frame 
+        imshow("Video Frame", frame);
+
+        // Save video frame
         oVideoWriter.write(frame);
 
         //
